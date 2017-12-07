@@ -72,7 +72,7 @@ def do_request(block, buf):
         return open(arg, 'rb') if type == 'file' else (arg)
 
       files = dict([(k, to_file(v)) for (k, v) in key_value_pairs.items() if FILE_REGEX.match(v)])
-      data = dict([(k, v) for (k, v) in key_value_pairs.items() if not FILE_REGEX.match(v)])
+      data = dict([(k, v.replace('\\n', '\n')) for (k, v) in key_value_pairs.items() if not FILE_REGEX.match(v)])
     else:
       # Straight data: just send it off as a string.
       data = '\n'.join(data)
